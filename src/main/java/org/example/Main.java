@@ -59,4 +59,106 @@ public class Main {
             ++cur_example;
         }
     }
+
+    public static boolean isDegreeOfTwo(int number) {
+
+        while(number % 2 == 0) {
+            number = number / 2;
+        }
+
+        if(number != 1)
+            return false;
+
+        else
+            return true;
+    }
+
+    public static int maxDegreeOfTwoLessThanNumber(int number) {
+
+        if(Main.isDegreeOfTwo(number))
+            return number;
+
+        int max = 0;
+
+        for(int i = 1; i < number; ++i) {
+            if(Main.isDegreeOfTwo(i) && (i > max))
+                max = i;
+        }
+        return max;
+    }
+
+//    public static Matrix product(Double[][] m1, Double[][] m2, int number) {
+//
+//        if(number == 1)
+//            return new Matrix(m1);
+//
+//
+//        Double[][] result = new Double[m1.length][m1.length];
+//
+//        for (int k = 1; k < number; ++k) {
+//            for (int i = 0; i < m1.length; ++i) {
+//                for (int j = 0; j < m1.length; ++j) {
+//                    result[i][j] = 0.0;
+//                }
+//            }
+//
+//            for (int i = 0; i < m1.length; ++i) {
+//                for (int j = 0; j < m1.length; ++j) {
+//                    for (int r = 0; r < m1.length; ++r) {
+//                        result[i][j] += m1[i][r] * m2[r][j];
+//                    }
+//                }
+//            }
+////            System.out.println("^^^^^^^^^^^^^^^^^^");
+////            System.out.println("Функция product");
+////            for (int i = 0; i < m1.length; ++i) {
+////                for (int j = 0; j < m1.length; ++j) {
+////                    System.out.println(result[i][j]);
+////                }
+////            }
+////            System.out.println("^^^^^^^^^^^^^^^^^^");
+//            for (int q1 = 0; q1 < m1.length; ++q1)
+//                for (int q2 = 0; q2 < m1.length; ++q2)
+//                    m2[q1][q2] = result[q1][q2];
+//        }
+//
+//        Matrix result_object_matrix = new Matrix(result);
+//        return result_object_matrix;
+//    }
+
+    public static Double[][] product(Double[][] m1, int number) {
+
+        if(number == 1)
+            return m1;
+
+        Double[][] curr = new Double[m1.length][m1.length];
+        for (int i = 0; i < m1.length; ++i) {
+            for (int j = 0; j < m1.length; ++j) {
+                curr[i][j] = m1[i][j];
+            }
+        }
+        Double[][] result = new Double[m1.length][m1.length];
+
+        for (int k = 1; k < number; ++k) {
+            for (int i = 0; i < m1.length; ++i) {
+                for (int j = 0; j < m1.length; ++j) {
+                    result[i][j] = 0.0;
+                }
+            }
+
+            for (int i = 0; i < m1.length; ++i) {
+                for (int j = 0; j < m1.length; ++j) {
+                    for (int r = 0; r < m1.length; ++r) {
+                        result[i][j] += m1[i][r] * curr[r][j];
+                    }
+                }
+            }
+
+            for (int q1 = 0; q1 < m1.length; ++q1)
+                for (int q2 = 0; q2 < m1[q1].length; ++q2)
+                    curr[q1][q2] = result[q1][q2];
+        }
+
+        return result;
+    }
 }
